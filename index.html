@@ -3384,6 +3384,15 @@ function abrirEditar(id){
 
 function abrirFormNuevo(formId){
   editandoId = null;
+  // Poblar todos los selects con catálogos actuales
+  poblarSelect('f-cliente',      'cliente');
+  poblarSelect('f-origen',       'origen');
+  poblarSelect('f-destino',      'destino');
+  poblarSelect('f-producto',     'producto');
+  poblarSelect('f-transportista','transportista');
+  poblarSelect('f-camion',       'camion');
+  poblarSelect('f-conductor',    'conductor');
+  poblarSelect('f-tipo',         'tipoRecurso');
   // Limpiar campos del formulario
   ['f-cliente','f-destino','f-origen','f-producto','f-transportista',
    'f-camion','f-conductor','f-toneladas','f-tarifa','f-precio-ton','f-ntransporte'
