@@ -1377,7 +1377,7 @@ async function sbCargarConfig(){
     if(map.porcAnticipo)        porcAnticipo = parseFloat(map.porcAnticipo)||50;
     if(map.porcIT)              porcIT       = parseFloat(map.porcIT)||3;
     if(map.tipoCambioHistorial) try{ tipoCambioHistorial=JSON.parse(map.tipoCambioHistorial)||[]; }catch(e){}
-    if(map.catalogos)           try{ catalogos=Object.assign({},catalogos,JSON.parse(map.catalogos)); }catch(e){}
+    if(map.catalogos)           try{ catalogos=Object.assign({},catalogos,JSON.parse(map.catalogos)); console.log('✅ Catálogos desde Supabase:', Object.keys(catalogos).map(k=>k+':'+catalogos[k].length)); }catch(e){ console.warn('Error cargando catálogos:', e); }
     console.log('✅ Config desde Supabase');
     return true;
   } catch(e){ console.warn('sbCargarConfig:', e.message); return false; }
