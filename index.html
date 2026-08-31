@@ -3425,11 +3425,18 @@ function cancelarFormulario(){
 }
 
 // ─── BORRAR DESPACHO ─────────────────────────────────────────────────────────
-function borrarDespacho(id){
+async function borrarDespacho(id){
   const d = getD(id);
   if(!confirm(`¿Borrar el despacho ${id} — ${d.cliente}?\nEsta acción no se puede deshacer.`)) return;
   despachos = despachos.filter(x => x.id !== id);
   guardarDatos();
+  // Eliminar de Supabase
+  if(supabaseReady){
+    try{
+      await supa.from('despachos').delete().eq('id', id);
+      console.log('✅ Despacho eliminado de Supabase:', id);
+    } catch(e){ console.warn('Error eliminando de Supabase:', e.message); }
+  }
   renderDespachos();
 }
 
