@@ -6837,9 +6837,15 @@ function renderTesSecCobrar(){
 
   const all  = [...tesCXC, ...autoCXC]
     .sort((a,b)=>{
-      // Orden: 1=Pendiente/Auto/Anticipo cobrado, 2=Cerrado/Cobrado
-      const peso = x => (x.estado==='Cerrado'||x.estado==='Cobrado') ? 2 : 1;
-      return peso(a) - peso(b) || (a.fecha||'').localeCompare(b.fecha||'');
+      const aFact = (a.factura||'').trim();
+      const bFact = (b.factura||'').trim();
+      // Sin factura primero
+      if(!aFact && bFact) return -1;
+      if(aFact && !bFact) return 1;
+      // Ambos con factura: más reciente arriba (descendente por fecha)
+      if(aFact && bFact) return (b.fecha||'').localeCompare(a.fecha||'');
+      // Ambos sin factura: más reciente arriba
+      return (b.fecha||'').localeCompare(a.fecha||'');
     });
 
   // Estados que ya están cobrados/cerrados
